@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Split Bill</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="top">
+        <div class="logo" aria-hidden="true">🧾</div>
+        <div class="hi">
+          <b>Split Bill</b><span>Input struk, bagi otomatis</span>
+        </div>
+        <button
+          type="button"
+          class="round blue"
+          id="btn-plus"
+          aria-label="Tambah item"
+          onclick="tambahSesuaiTab()"
+        >
+          +
+        </button>
+      </header>
+
+      <h1>Catat <b>struk</b>,<br />bagi per <b>orang</b></h1>
+      <div id="err" class="err" role="alert" hidden></div>
+
+      <section id="v-struk" class="view" aria-label="Struk">
+        <div class="chips">
+          <span class="chip blue static" id="c-item">0 item</span
+          ><span class="chip static" id="c-sub">Subtotal Rp 0</span>
+        </div>
+        <div id="daftar-item"></div>
+        <button type="button" class="pill" onclick="tambahItem()">
+          + Tambah item
+        </button>
+        <div class="card" style="margin-top: 14px">
+          <h2>Biaya di struk</h2>
+          <div class="grid">
+            <div>
+              <label for="pajak">Pajak (%)</label
+              ><input
+                id="pajak"
+                type="number"
+                min="0"
+                inputmode="decimal"
+                value="10"
+              />
+            </div>
+            <div>
+              <label for="service">Service (%)</label
+              ><input
+                id="service"
+                type="number"
+                min="0"
+                inputmode="decimal"
+                value="5"
+              />
+            </div>
+            <div>
+              <label for="diskon">Diskon (Rp)</label
+              ><input
+                id="diskon"
+                type="number"
+                min="0"
+                inputmode="numeric"
+                value="0"
+              />
+            </div>
+            <div>
+              <label for="ongkir">Ongkir / lain (Rp)</label
+              ><input
+                id="ongkir"
+                type="number"
+                min="0"
+                inputmode="numeric"
+                value="0"
+              />
+            </div>
+          </div>
+          <div style="margin-top: 12px">
+            <label for="bulat">Pembulatan</label>
+            <select id="bulat">
+              <option value="1">Tanpa pembulatan</option>
+              <option value="100" selected>Ke atas, Rp 100</option>
+              <option value="500">Ke atas, Rp 500</option>
+              <option value="1000">Ke atas, Rp 1.000</option>
+            </select>
+          </div>
+        </div>
+        <button type="button" class="go" onclick="tampilTab('orang')">
+          Lanjut: isi nama orang
+        </button>
+      </section>
+
+      <section id="v-orang" class="view" aria-label="Orang" hidden>
+        <div id="daftar-orang"></div>
+        <button type="button" class="pill" onclick="tambahOrang()">
+          + Tambah orang
+        </button>
+        <button type="button" class="go" onclick="tampilTab('bagi')">
+          Lanjut: bagi pesanan
+        </button>
+      </section>
+
+      <section id="v-bagi" class="view" aria-label="Bagi pesanan" hidden>
+        <p class="note" style="margin-top: 0">
+          Isi berapa porsi tiap item yang dimakan masing-masing orang. Item yang
+          dibagi bersama? Tekan <b>Bagi rata</b>.
+        </p>
+        <div id="daftar-bagi"></div>
+        <button type="button" class="go" onclick="hitungSemua()">
+          Hitung sekarang
+        </button>
+      </section>
+
+      <section
+        id="v-hasil"
+        class="view"
+        aria-label="Hasil"
+        aria-live="polite"
+        hidden
+      >
+        <div id="kosong" class="card kosong">
+          Belum ada hasil. Isi struk dan pembagian, lalu tekan
+          <b>Hitung sekarang</b>.
+        </div>
+        <div id="isi" hidden>
+          <div class="duo">
+            <div class="card">
+              <h2>Porsi tiap orang</h2>
+              <div id="chart" class="chart" aria-hidden="true"></div>
+            </div>
+            <div class="card blue">
+              <div class="sub">Total tagihan</div>
+              <div id="r-total" class="big"></div>
+              <div class="prog" aria-hidden="true"><i id="r-prog"></i></div>
+              <div id="r-rinci" class="sub"></div>
+            </div>
+          </div>
+          <div id="kartu"></div>
+          <p id="r-catatan" class="note"></p>
+          <button type="button" class="go" onclick="salinRingkasan()">
+            Salin ringkasan
+          </button>
+          <p id="salin-info" class="note" style="text-align: center"></p>
+        </div>
+      </section>
+    </div>
+
+    <nav class="nav" aria-label="Menu utama">
+      <button
+        type="button"
+        id="t-struk"
+        aria-current="page"
+        onclick="tampilTab('struk')"
+      >
+        Struk
+      </button>
+      <button type="button" id="t-orang" onclick="tampilTab('orang')">
+        Orang
+      </button>
+      <button type="button" id="t-bagi" onclick="tampilTab('bagi')">
+        Bagi
+      </button>
+      <button type="button" id="t-hasil" onclick="tampilTab('hasil')">
+        Hasil
+      </button>
+    </nav>
+    <script src="script.js"></script>
+  </body>
+</html>
