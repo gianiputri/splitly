@@ -27,7 +27,8 @@ function tampilTab(nama) {
     var aktif = daftar[i] === nama;
     document.getElementById('v-' + daftar[i]).hidden = !aktif;
     var tombol = document.getElementById('t-' + daftar[i]);
-    if (aktif) tombol.setAttribute('aria-current', 'page'); else tombol.removeAttribute('aria-current');
+    if (aktif) tombol.setAttribute('aria-current', 'page'); 
+        else tombol.removeAttribute('aria-current');
   }
   tabAktif = nama;
   document.getElementById('btn-plus').setAttribute('aria-label', nama === 'orang' ? 'Tambah orang' : 'Tambah item');
@@ -35,7 +36,8 @@ function tampilTab(nama) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 function tambahSesuaiTab() {
-  if (tabAktif === 'orang') tambahOrang(); else { tampilTab('struk'); tambahItem(); }
+  if (tabAktif === 'orang') tambahOrang(); 
+        else { tampilTab('struk'); tambahItem(); }
 }
 
 /* ===== FUNGSI DATA: ITEM ===== */
